@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Franquiciado Tecnológico FT - Soporte para negocios locales</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+  <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/2950/2950506.png" />
+  <style>
+    /* Reset y fuente */
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f8f9fa;
+      scroll-behavior: smooth;
+    }
+
+    /* Navbar sticky */
+    nav.navbar {
+      transition: background-color 0.3s ease;
+      background-color: transparent;
+      padding: 1rem 2rem;
+      position: fixed;
+      width: 100%;
+      z-index: 1030;
+    }
+
+    nav.navbar.scrolled {
+      background-color: #ffffffcc;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    nav.navbar .navbar-brand {
+      font-weight: 700;
+      color: #007bff;
+      font-size: 1.8rem;
+      letter-spacing: 1px;
+    }
+    nav.navbar .navbar-nav .nav-link {
+      color: #212529;
+      font-weight: 500;
+      transition: color 0.2s ease;
+    }
+    nav.navbar .navbar-nav .nav-link:hover {
+      color: #007bff;
+    }
+
+    /* Hero con video y overlay */
+    header.hero {
+      position: relative;
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      text-align: center;
+      padding: 0 1rem;
+    }
+    header.hero video {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      min-width: 100%;
+      min-height: 100%;
+      width: auto;
+      height: auto;
+      z-index: 0;
+      transform: translate(-50%, -50%);
+      filter: brightness(0.5);
+    }
+    header.hero .overlay {
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background-color: rgba(0,0,0,0.55);
+      z-index: 1;
+    }
+    header.hero .container {
+      position: relative;
+      z-index: 2;
+      max-width: 700px;
+    }
+    header.hero h1 {
+      font-size: 3.5rem;
+      font-weight: 900;
+      text-shadow: 3px 3px 8px rgba(0,0,0,0.8);
+      margin-bottom: 1rem;
+    }
+    header.hero p {
+      font-size: 1.5rem;
+      font-weight: 500;
+      text-shadow: 1px 1px 6px rgba(0,0,0,0.7);
+      margin-bottom: 2rem;
+    }
+    header.hero .btn-primary {
+      font-size: 1.25rem;
+      padding: 0.8rem 2.5rem;
+      border-radius: 50px;
+      box-shadow: 0 5px 15px rgba(0,123,255,0.5);
+      transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+    header.hero .btn-primary:hover {
+      background-color: #0056b3;
+      transform: scale(1.05);
+    }
+
+    /* Sección actividades */
+    section.actividades {
+      padding: 5rem 2rem;
+      background: #fff;
+    }
+    section.actividades h2 {
+      font-weight: 700;
+      margin-bottom: 2.5rem;
+      text-align: center;
+      color: #007bff;
+    }
+    section.actividades .card {
+      border-radius: 15px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease;
+    }
+    section.actividades .card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+    }
+    section.actividades .card-body h5 {
+      color: #0056b3;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+
+    /* Sección ingresos */
+    section.ingresos {
+      background: linear-gradient(135deg, #007bff 0%, #00c6ff 100%);
+      color: white;
+      padding: 5rem 2rem;
+      text-align: center;
+    }
+    section.ingresos h2 {
+      font-weight: 700;
+      margin-bottom: 2rem;
+    }
+    section.ingresos p {
+      font-size: 1.3rem;
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+    }
+
+    /* FAQ */
+    section.faq {
+      background: #f1f5f9;
+      padding: 5rem 2rem;
+    }
+    section.faq h2 {
+      text-align: center;
+      color: #007bff;
+      font-weight: 700;
+      margin-bottom: 3rem;
+    }
+    .accordion-button {
+      font-weight: 600;
+      color: #007bff;
+    }
+
+    /* Contacto */
+    section.contacto {
+      padding: 4rem 2rem;
+      background: #fff;
+      max-width: 600px;
+      margin: 0 auto 4rem auto;
+      border-radius: 12px;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.1);
+    }
+    section.contacto h2 {
+      text-align: center;
+      margin-bottom: 2rem;
+      color: #007bff;
+      font-weight: 700;
+    }
+    section.contacto label {
+      font-weight: 600;
+    }
+    section.contacto input, section.contacto textarea {
+      border-radius: 8px;
+      border: 1px solid #ced4da;
+      padding: 0.75rem 1rem;
+      transition: border-color 0.3s ease;
+    }
+    section.contacto input:focus, section.contacto textarea:focus {
+      border-color: #007bff;
+      outline: none;
+      box-shadow: 0 0 8px #007bffaa;
+    }
+    section.contacto button {
+      background-color: #007bff;
+      border: none;
+      color: white;
+      font-weight: 700;
+      padding: 0.8rem 2rem;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+      width: 100%;
+      font-size: 1.2rem;
+      margin-top: 1rem;
+    }
+    section.contacto button:hover {
+      background-color: #0056b3;
+      transform: scale(1.05);
+    }
+
+    /* Footer */
+    footer {
+      background-color: #212529;
+      color: #ced4da;
+      padding: 2rem 1rem;
+      text-align: center;
+      font-size: 0.9rem;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      header.hero h1 {
+        font-size: 2.5rem;
+      }
+      header.hero p {
+        font-size: 1.2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="#">FT Tecnología</a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarNav"
+      aria-controls="navbarNav"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto fw-semibold">
+        <li class="nav-item"><a class="nav-link" href="#actividades">Actividades</a></li>
+        <li class="nav-item"><a class="nav-link" href="#ingresos">Ingresos</a></li>
+        <li class="nav-item"><a class="nav-link" href="#faq">FAQ</a></li>
+        <li class="nav-item"><a class="nav-link" href="#contacto">Contacto</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- Hero con video -->
+<header class="hero">
+  <video autoplay muted loop playsinline>
+    <source src="https://cdn.videvo.net/videvo_files/video/free/2016-12/small_watermarked/161130_1_Office_Business_03_preview.webm" type="video/webm" />
+    <source src="https://cdn.videvo.net/videvo_files/video/free/2016-12/small_watermarked/161130_1_Office_Business_03_preview.mp4" type="video/mp4" />
+    Tu navegador no soporta video HTML5.
+  </video>
+  <div class="overlay"></div>
+  <div class="container" data-aos="fade-up" data-aos-duration="1200">
+    <h1>Franquiciado Tecnológico FT</h1>
+    <p>Transformá tu tiempo en ingresos reales con soporte tecnológico para negocios locales</p>
+    <a href="#contacto" class="btn btn-primary btn-lg">Quiero empezar</a>
+  </div>
+</header>
+
+<!-- Sección actividades -->
+<section id="actividades" class="actividades container" data-aos="fade-right" data-aos-duration="1200">
+  <h2>¿Qué actividades realizarás?</h2>
+  <div class="row g-4">
+    <div class="col-md-4">
+      <div class="card p-4 h-100">
+        <h5>Soporte técnico digital</h5>
+        <p>Responder consultas, resolver problemas y asistir en el uso de aplicaciones clave para negocios locales como gestión de turnos, cobros digitales, WhatsApp Business y más.</p>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card p-4 h-100">
+        <h5>Visitas presenciales de asesoría</h5>
+        <p>Capacitar personalmente a comercios para potenciar su gestión digital, implementar nuevas herramientas y optimizar procesos.</p>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card p-4 h-100">
+        <h5>Microtareas especializadas</h5>
+        <p>Carga de productos en plataformas, actualización de perfiles comerciales, coordinación de servicios y otras tareas digitales de alta demanda.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Sección ingresos -->
+<section id="ingresos" class="ingresos" data-aos="fade-left" data-aos-duration="1200">
+  <h2>Potencial de ingresos y retorno de inversión</h2>
+  <p>Ingresos diarios estimados:<br><strong>Entre $30.000 y $40.000 ARS</strong> por jornada de 5 a 6 horas.</p>
+  <p>Esto representa entre <strong>$600.000 y $800.000 ARS mensuales</strong>, trabajando 20 días al mes.</p>
+  <p>Inversión inicial:<br><strong>Pago único de $95.000 ARS</strong> que incluye capacitación, kit digital, plataforma de gestión y base exclusiva de clientes potenciales.</p>
+  <p>Recuperación estimada en <strong>máximo 2 semanas laborales</strong> gracias a la alta demanda y comisiones adicionales.</p>
+</section>
+
+<!-- FAQ con Accordion -->
+<section id="faq" class="faq container" data-aos="fade-up" data-aos-duration="1200">
+  <h2>Preguntas Frecuentes (FAQ)</h2>
+  <div class="accordion" id="faqAccordion">
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="faq1">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse1" aria-expanded="false" aria-controls="collapse1">
+          ¿Necesito experiencia previa en tecnología para ser Franquiciado FT?
+        </button>
+      </h2>
+      <div id="collapse1" class="accordion-collapse collapse" aria-labelledby="faq1" data-bs-parent="#faqAccordion">
+        <div class="accordion-body">
+          No es necesario tener experiencia previa. Nosotros brindamos capacitación completa para que puedas comenzar desde cero.
+        </div>
+      </div>
+    </div>
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="faq2">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2" aria-expanded="false" aria-controls="collapse2">
+          ¿Puedo trabajar en horarios flexibles?
+        </button>
+      </h2>
+      <div id="collapse2" class="accordion-collapse collapse" aria-labelledby="faq2" data-bs-parent="#faqAccordion">
+        <div class="accordion-body">
+          Sí, la microfranquicia está diseñada para que elijas tus horarios y combines tareas presenciales y digitales según tu conveniencia.
+        </div>
+      </div>
+    </div>
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="faq3">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse3" aria-expanded="false" aria-controls="collapse3">
+          ¿Cómo recupero la inversión inicial?
+        </button>
+      </h2>
+      <div id="collapse3" class="accordion-collapse collapse" aria-labelledby="faq3" data-bs-parent="#faqAccordion">
+        <div class="accordion-body">
+          Gracias a
+<!-- FAQ con Accordion -->
+<section id="faq" class="faq container" data-aos="fade-up" data-aos-duration="1200">
+  <h2>Preguntas Frecuentes (FAQ)</h2>
+  <div class="accordion" id="faqAccordion">
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="faq1">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse1" aria-expanded="false" aria-controls="collapse1">
+          ¿Necesito experiencia previa en tecnología para ser Franquiciado FT?
+        </button>
+      </h2>
+      <div id="collapse1" class="accordion-collapse collapse" aria-labelledby="faq1" data-bs-parent="#faqAccordion">
+        <div class="accordion-body">
+          No es necesario tener conocimientos técnicos avanzados. Nuestra capacitación cubre todo lo que necesitás para comenzar con éxito.
+        </div>
+      </div>
+    </div>
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="faq2">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2" aria-expanded="false" aria-controls="collapse2">
+          ¿Cuánto tiempo lleva la capacitación inicial?
+        </button>
+      </h2>
+      <div id="collapse2" class="accordion-collapse collapse" aria-labelledby="faq2" data-bs-parent="#faqAccordion">
+        <div class="accordion-body">
+          La capacitación dura 2 semanas intensivas, combinando clases online y prácticas presenciales.
+        </div>
+      </div>
+    </div>
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="faq3">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse3" aria-expanded="false" aria-controls="collapse3">
+          ¿Qué soporte recibo después de la capacitación?
+        </button>
+      </h2>
+      <div id="collapse3" class="accordion-collapse collapse" aria-labelledby="faq3" data-bs-parent="#faqAccordion">
+        <div class="accordion-body">
+          Contás con acceso a soporte técnico 24/7, actualizaciones constantes y una comunidad exclusiva de franquiciados.
+        </div>
+      </div>
+    </div>
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="faq4">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse4" aria-expanded="false" aria-controls="collapse4">
+          ¿Cómo se realiza el seguimiento de mis resultados?
+        </button>
+      </h2>
+      <div id="collapse4" class="accordion-collapse collapse" aria-labelledby="faq4" data-bs-parent="#faqAccordion">
+        <div class="accordion-body">
+          Disponemos de una plataforma online para que monitorees tus actividades, ingresos y progreso en tiempo real.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Contacto -->
+<section id="contacto" class="contacto" data-aos="fade-up" data-aos-duration="1200">
+  <h2>Contacto</h2>
+  <form action="https://formspree.io/f/mwkajwaz" method="POST">
+    <div class="mb-3">
+      <label for="name" class="form-label">Nombre completo</label>
+      <input type="text" id="name" name="name" required class="form-control" placeholder="Tu nombre" />
+    </div>
+    <div class="mb-3">
+      <label for="email" class="form-label">Correo electrónico</label>
+      <input type="email" id="email" name="_replyto" required class="form-control" placeholder="tucorreo@ejemplo.com" />
+    </div>
+    <div class="mb-3">
+      <label for="message" class="form-label">Mensaje</label>
+      <textarea id="message" name="message" rows="5" required class="form-control" placeholder="Escribe tu consulta aquí..."></textarea>
+    </div>
+    <input type="hidden" name="_subject" value="Contacto Franquiciado FT" />
+    <button type="submit">Enviar mensaje</button>
+  </form>
+  <p class="mt-3 text-center text-muted" style="font-size: 0.9rem;">
+    O también podés escribirnos directamente a <a href="mailto:elhombrequefm@gmail.com">elhombrequefm@gmail.com</a>
+  </p>
+</section>
+
+<!-- Footer -->
+<footer>
+  &copy; 2025 Franquiciado Tecnológico FT - Todos los derechos reservados
+</footer>
+
+<!-- Scripts -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+  AOS.init();
+
+  // Navbar background on scroll
+  const navbar = document.querySelector('nav.navbar');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 50) {
+      navbar.classList.add('scrolled');
+    } else {
+      navbar.classList.remove('scrolled');
+    }
+  });
+</script>
+
+</body>
+</html>
+
+         
